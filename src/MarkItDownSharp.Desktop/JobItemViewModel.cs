@@ -6,10 +6,10 @@ namespace MarkItDownSharp.Desktop;
 public sealed partial class JobItemViewModel : ObservableObject
 {
     [ObservableProperty]
-    private ConversionJobState _state;
+    public partial ConversionJobState State { get; set; }
 
     [ObservableProperty]
-    private string? _error;
+    public partial string? Error { get; set; }
 
     public JobItemViewModel(ConversionJob job)
     {

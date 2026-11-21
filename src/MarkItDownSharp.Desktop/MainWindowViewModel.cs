@@ -24,27 +24,27 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncDispos
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
-    private string _sourceDirectory = string.Empty;
+    public partial string SourceDirectory { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
-    private string _outputDirectory = string.Empty;
+    public partial string OutputDirectory { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private bool _includeSubdirectories = true;
+    public partial bool IncludeSubdirectories { get; set; } = true;
 
     [ObservableProperty]
-    private bool _processExistingFiles;
+    public partial bool ProcessExistingFiles { get; set; }
 
     [ObservableProperty]
-    private int _collisionIndex = 2;
+    public partial int CollisionIndex { get; set; } = 2;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand), nameof(StopCommand))]
-    private bool _isRunning;
+    public partial bool IsRunning { get; set; }
 
     [ObservableProperty]
-    private string _status = "Ready";
+    public partial string Status { get; set; } = "Ready";
 
     public async Task LoadAsync()
     {

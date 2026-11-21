@@ -56,13 +56,3 @@ public sealed class ConversionJob : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(OutputPath)));
     }
 }
-
-public enum ConversionJobState
-{
-    Queued,
-    WaitingForFile,
-    Processing,
-    Completed,
-    Failed,
-    Skipped
-}
