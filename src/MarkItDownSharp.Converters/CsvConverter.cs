@@ -1,4 +1,5 @@
 using System.Text;
+using MarkItDownSharp.Converters.Internal;
 using MarkItDownSharp.Core;
 
 namespace MarkItDownSharp.Converters;
@@ -6,6 +7,8 @@ namespace MarkItDownSharp.Converters;
 public sealed class CsvConverter : IMarkItDownConverter, IExtensionProvider
 {
     public int Priority => 0;
+    public string Name => "Delimited text";
+    public string Description => "CSV and TSV files as Markdown tables, including quoted cells that span lines.";
     public IReadOnlyCollection<string> Extensions { get; } = new[] { ".csv", ".tsv" };
 
     public bool CanConvert(StreamMetadata metadata) =>
@@ -13,37 +16,27 @@ public sealed class CsvConverter : IMarkItDownConverter, IExtensionProvider
 
     public async Task<ConversionResult> ConvertAsync(Stream stream, StreamMetadata metadata, CancellationToken cancellationToken = default)
     {
-        using var reader = new StreamReader(stream, Encoding.UTF8, true);
+        var text = await TextDecoding.ReadAllTextAsync(stream, cancellationToken);
         var separator = metadata.Extension?.Equals(".tsv", StringComparison.OrdinalIgnoreCase) == true ? '\t' : ',';
-        var output = new StringBuilder();
-        var isFirst = true;
-
-        while (await reader.ReadLineAsync(cancellationToken) is { } line)
-        {
-            var cells = ParseRow(line, separator);
-            output.Append("| ").AppendJoin(" | ", cells.Select(Escape)).AppendLine(" |");
-            if (isFirst)
-            {
-                output.Append("| ").AppendJoin(" | ", cells.Select(_ => "---")).AppendLine(" |");
-                isFirst = false;
-            }
-        }
-
-        return new ConversionResult(output.ToString().TrimEnd(), Path.GetFileNameWithoutExtension(metadata.FileName));
+        var rows = ParseRecords(text, separator);
+        return new ConversionResult(MarkdownTable.Build(rows), Path.GetFileNameWithoutExtension(metadata.FileName));
     }
 
-    private static string[] ParseRow(string line, char separator)
+    private static List<IReadOnlyList<string>> ParseRecords(string text, char separator)
     {
+        var rows = new List<IReadOnlyList<string>>();
         var cells = new List<string>();
         var current = new StringBuilder();
         var inQuotes = false;
+        var recordHasContent = false;
 
-        for (var i = 0; i < line.Length; i++)
+        for (var i = 0; i < text.Length; i++)
         {
-            var c = line[i];
+            var c = text[i];
             if (c == '"')
             {
-                if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                recordHasContent = true;
+                if (inQuotes && i + 1 < text.Length && text[i + 1] == '"')
                 {
                     current.Append('"');
                     i++;
@@ -57,17 +50,33 @@ public sealed class CsvConverter : IMarkItDownConverter, IExtensionProvider
             {
                 cells.Add(current.ToString());
                 current.Clear();
+                recordHasContent = true;
+            }
+            else if (c == '\n' && !inQuotes)
+            {
+                EndRecord();
             }
             else
             {
                 current.Append(c);
+                recordHasContent = true;
             }
         }
 
-        cells.Add(current.ToString());
-        return cells.ToArray();
-    }
+        EndRecord();
+        return rows;
 
-    private static string Escape(string value) =>
-        value.Replace("|", "\\|").Replace("\r", " ").Replace("\n", " ").Trim();
+        void EndRecord()
+        {
+            if (recordHasContent || cells.Count > 0)
+            {
+                cells.Add(current.ToString());
+                rows.Add(cells.ToArray());
+            }
+
+            cells = [];
+            current.Clear();
+            recordHasContent = false;
+        }
+    }
 }

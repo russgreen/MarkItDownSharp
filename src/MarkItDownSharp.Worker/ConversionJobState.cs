@@ -1,5 +1,6 @@
 namespace MarkItDownSharp.Worker;
 
+// Values are persisted in the job history file. Append new states; never renumber existing ones.
 public enum ConversionJobState
 {
     Queued,
@@ -7,5 +8,7 @@ public enum ConversionJobState
     Processing,
     Completed,
     Failed,
-    Skipped
+    Skipped,
+    Cancelled,
+    Retrying
 }

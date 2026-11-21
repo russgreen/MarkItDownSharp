@@ -1,0 +1,35 @@
+<Project Sdk="WixToolset.Sdk/7.0.1">
+
+  <PropertyGroup>
+    <!-- Accepts the WiX 7 OSMF EULA (build fails with WIX7015 without it). A deliberate legal acceptance. -->
+    <AcceptEula>wix7</AcceptEula>
+
+    <OutputType>Package</OutputType>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <SuppressValidation>false</SuppressValidation>
+    <!--
+      ICE61: AllowSameVersionUpgrades is deliberate so rebuilding a version still replaces it.
+      ICE03: the harvested Windows App SDK native DLLs carry version-resource language lists the File table validator rejects.
+      ICE69: the Start Menu shortcut lives in its own HKCU-keyed component (satisfies ICE38 and ICE43) and targets the exe's component.
+    -->
+    <SuppressIces>ICE61;ICE03;ICE69</SuppressIces>
+
+    <!-- Version: the Fallout build always passes -p:ProductVersion=<version>. A direct build uses the repo version. -->
+    <ProductVersion Condition="'$(ProductVersion)' == ''">$(Version)</ProductVersion>
+
+    <OutputName>MarkItDownSharp.$(ProductVersion)</OutputName>
+    <OutputPath>$(MSBuildProjectDirectory)\MarkItDownSharp-SetupFiles\</OutputPath>
+
+    <!-- Repo root WITH the trailing backslash, so the wxs always writes $(var.RepoRoot)output\... -->
+    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\'))</RepoRoot>
+    <!-- The unpackaged, self-contained publish of the desktop app that the MSI installs (written by the Fallout Publish target). -->
+    <PublishRoot Condition="'$(PublishRoot)' == ''">$(RepoRoot)output\MarkItDownSharp\</PublishRoot>
+    <DefineConstants>$(DefineConstants);ProductVersion=$(ProductVersion);RepoRoot=$(RepoRoot);PublishRoot=$(PublishRoot)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The version is central: Directory.Packages.props. Keep it equal to the SDK version above. -->
+    <PackageReference Include="WixToolset.UI.wixext" />
+  </ItemGroup>
+
+</Project>

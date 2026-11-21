@@ -424,3 +424,8 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# Fallout build and WiX installer output
+output/
+.fallout/temp/
+installer/*-SetupFiles/

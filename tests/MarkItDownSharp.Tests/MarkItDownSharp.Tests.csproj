@@ -11,7 +11,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="DocumentFormat.OpenXml" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="PdfPig" />
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.runner.visualstudio">
       <PrivateAssets>all</PrivateAssets>
@@ -21,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\MarkItDownSharp.Converters\MarkItDownSharp.Converters.csproj" />
     <ProjectReference Include="..\..\src\MarkItDownSharp.Core\MarkItDownSharp.Core.csproj" />
+    <ProjectReference Include="..\..\src\MarkItDownSharp.Presentation\MarkItDownSharp.Presentation.csproj" />
     <ProjectReference Include="..\..\src\MarkItDownSharp.Worker\MarkItDownSharp.Worker.csproj" />
   </ItemGroup>
 </Project>

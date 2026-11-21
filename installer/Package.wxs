@@ -1,0 +1,94 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <!-- Registry location for the install path and version. -->
+  <?define RegistryKey="Software\Russ Green\MarkItDownSharp"?>
+
+  <!--
+    The UpgradeCode MUST NEVER change: it is what makes a new MSI replace an installed older one.
+    The ProductCode is generated per build.
+    This MSI installs the unpackaged (no package identity) build of the desktop app, published by the Fallout Publish target.
+    The MSIX package is a separate way to install the same app.
+  -->
+  <Package Name="MarkItDownSharp"
+           Manufacturer="Russ Green"
+           Version="$(var.ProductVersion)"
+           UpgradeCode="15F6EFBC-EBAC-453E-A0B9-B0D17EDF307D"
+           Language="1033"
+           Scope="perMachine">
+
+    <SummaryInformation Description="MarkItDownSharp installer" />
+
+    <!-- AllowSameVersionUpgrades needs ICE61 suppressed in the wixproj. -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+                  DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <!-- ARPPRODUCTICON must be the Id of an Icon element, never a file path. -->
+    <Icon Id="MarkItDownSharp.ico" SourceFile="$(var.RepoRoot)src\MarkItDownSharp.Desktop\Assets\AppIcon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="MarkItDownSharp.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/russgreen/MarkItDownSharp" />
+    <Property Id="ARPCOMMENTS" Value="MarkItDownSharp watches a folder and converts the files that appear in it to Markdown." />
+
+    <!-- UI: shared template in UI.wxs, PNG art next to this file -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(sys.SOURCEFILEDIR)markitdownsharp_banner.png" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(sys.SOURCEFILEDIR)markitdownsharp_background.png" />
+    <UIRef Id="WixUI_Minimal" />
+
+    <!-- Install locations -->
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="MarkItDownSharp" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="MarkItDownSharp" />
+    </StandardDirectory>
+
+    <Feature Id="MainFeature" Title="MarkItDownSharp" Level="1" AllowAbsent="no">
+      <ComponentGroupRef Id="AppRegistry" />
+      <ComponentGroupRef Id="AppExecutable" />
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentGroupRef Id="AppShortcuts" />
+    </Feature>
+
+    <ComponentGroup Id="AppRegistry" Directory="INSTALLFOLDER">
+      <Component Id="ProductInformation">
+        <RegistryValue Root="HKLM" Key="$(var.RegistryKey)" Name="Path" Type="string" Value="[INSTALLFOLDER]" KeyPath="yes" />
+        <RegistryValue Root="HKLM" Key="$(var.RegistryKey)" Name="Version" Type="string" Value="[ProductVersion]" />
+        <CreateFolder />
+      </Component>
+    </ComponentGroup>
+
+    <!-- The executable has its own component so the shortcut can target it. -->
+    <ComponentGroup Id="AppExecutable" Directory="INSTALLFOLDER">
+      <Component Id="AppExecutableComponent">
+        <File Id="MarkItDownSharpExe" Source="$(var.PublishRoot)MarkItDownSharp.Desktop.exe" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <!--
+      Everything else in the self-contained publish folder. Build it first (Fallout Publish target): a missing folder
+      only raises warning WIX8601 and installs nothing.
+    -->
+    <ComponentGroup Id="AppFiles" Directory="INSTALLFOLDER">
+      <Files Include="$(var.PublishRoot)**">
+        <Exclude Files="$(var.PublishRoot)MarkItDownSharp.Desktop.exe" />
+        <Exclude Files="$(var.PublishRoot)**\*.pdb" />
+      </Files>
+    </ComponentGroup>
+
+    <ComponentGroup Id="AppShortcuts" Directory="ApplicationProgramsFolder">
+      <Component Id="StartMenuShortcut">
+        <Shortcut Id="StartMenuShortcutLink"
+                  Name="MarkItDownSharp"
+                  Description="Convert files to Markdown"
+                  Target="[#MarkItDownSharpExe]"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="$(var.RegistryKey)" Name="StartMenuShortcut" Type="integer" Value="1" KeyPath="yes" />
+        <!-- The "Start with Windows" setting writes this per user value; remove it for the user who uninstalls. -->
+        <RemoveRegistryValue Root="HKCU" Key="Software\Microsoft\Windows\CurrentVersion\Run" Name="MarkItDownSharp" />
+      </Component>
+    </ComponentGroup>
+  </Package>
+</Wix>

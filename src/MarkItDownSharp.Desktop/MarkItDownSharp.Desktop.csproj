@@ -5,6 +5,7 @@
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>MarkItDownSharp.Desktop</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MarkItDownSharp.Converters\MarkItDownSharp.Converters.csproj" />
     <ProjectReference Include="..\MarkItDownSharp.Core\MarkItDownSharp.Core.csproj" />
+    <ProjectReference Include="..\MarkItDownSharp.Presentation\MarkItDownSharp.Presentation.csproj" />
     <ProjectReference Include="..\MarkItDownSharp.Worker\MarkItDownSharp.Worker.csproj" />
   </ItemGroup>
   <ItemGroup>
