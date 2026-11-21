@@ -9,6 +9,7 @@ public sealed class FolderMonitorTests
     [Fact]
     public async Task Monitor_ConvertsNewFileAndPreservesSubdirectories()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
         var root = CreateTemporaryDirectory();
         var input = Directory.CreateDirectory(Path.Combine(root, "input"));
         var output = Path.Combine(root, "output");
@@ -21,24 +22,25 @@ public sealed class FolderMonitorTests
                 completed.TrySetResult(job);
             }
         };
-        await monitor.StartAsync(new MonitorOptions(input.FullName, output));
+        await monitor.StartAsync(new MonitorOptions(input.FullName, output), cancellationToken);
         var nested = Directory.CreateDirectory(Path.Combine(input.FullName, "nested"));
 
-        await File.WriteAllTextAsync(Path.Combine(nested.FullName, "notes.txt"), "converted");
-        var job = await completed.Task.WaitAsync(TimeSpan.FromSeconds(15));
+        await File.WriteAllTextAsync(Path.Combine(nested.FullName, "notes.txt"), "converted", cancellationToken);
+        var job = await completed.Task.WaitAsync(TimeSpan.FromSeconds(15), cancellationToken);
 
         Assert.Equal(ConversionJobState.Completed, job.State);
-        Assert.Equal("converted", await File.ReadAllTextAsync(Path.Combine(output, "nested", "notes.md")));
+        Assert.Equal("converted", await File.ReadAllTextAsync(Path.Combine(output, "nested", "notes.md"), cancellationToken));
     }
 
     [Fact]
     public async Task Monitor_VersionsExistingOutputWhenConfigured()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
         var root = CreateTemporaryDirectory();
         var input = Directory.CreateDirectory(Path.Combine(root, "input"));
         var output = Directory.CreateDirectory(Path.Combine(root, "output"));
-        await File.WriteAllTextAsync(Path.Combine(input.FullName, "notes.txt"), "new");
-        await File.WriteAllTextAsync(Path.Combine(output.FullName, "notes.md"), "old");
+        await File.WriteAllTextAsync(Path.Combine(input.FullName, "notes.txt"), "new", cancellationToken);
+        await File.WriteAllTextAsync(Path.Combine(output.FullName, "notes.md"), "old", cancellationToken);
         await using var monitor = CreateMonitor();
         var completed = new TaskCompletionSource<ConversionJob>(TaskCreationOptions.RunContinuationsAsynchronously);
         monitor.JobChanged += (_, job) =>
@@ -49,28 +51,31 @@ public sealed class FolderMonitorTests
             }
         };
 
-        await monitor.StartAsync(new MonitorOptions(
-            input.FullName,
-            output.FullName,
-            ProcessExistingFiles: true,
-            CollisionBehavior: CollisionBehavior.Version));
-        var job = await completed.Task.WaitAsync(TimeSpan.FromSeconds(15));
+        await monitor.StartAsync(
+            new MonitorOptions(
+                input.FullName,
+                output.FullName,
+                ProcessExistingFiles: true,
+                CollisionBehavior: CollisionBehavior.Version),
+            cancellationToken);
+        var job = await completed.Task.WaitAsync(TimeSpan.FromSeconds(15), cancellationToken);
 
         Assert.EndsWith("notes (1).md", job.OutputPath);
-        Assert.Equal("new", await File.ReadAllTextAsync(job.OutputPath));
-        Assert.Equal("old", await File.ReadAllTextAsync(Path.Combine(output.FullName, "notes.md")));
+        Assert.Equal("new", await File.ReadAllTextAsync(job.OutputPath, cancellationToken));
+        Assert.Equal("old", await File.ReadAllTextAsync(Path.Combine(output.FullName, "notes.md"), cancellationToken));
     }
 
     [Fact]
     public async Task Monitor_RejectsOutputInsideInput()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
         var root = CreateTemporaryDirectory();
         var input = Directory.CreateDirectory(Path.Combine(root, "input"));
         var output = Path.Combine(input.FullName, "output");
         await using var monitor = CreateMonitor();
 
         await Assert.ThrowsAsync<ArgumentException>(
-            () => monitor.StartAsync(new MonitorOptions(input.FullName, output)));
+            () => monitor.StartAsync(new MonitorOptions(input.FullName, output), cancellationToken));
     }
 
     private static FolderMonitorService CreateMonitor() =>

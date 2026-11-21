@@ -53,7 +53,7 @@
         </Grid>
 
         <Border Grid.Row="2" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
-            <ListView ItemsSource="{x:Bind ViewModel.Jobs}" SelectionMode="None">
+            <ListView ItemsSource="{x:Bind ViewModel.Jobs, Mode=OneTime}" SelectionMode="None">
                 <ListView.Header>
                     <Grid Padding="12,8" ColumnSpacing="12" Background="{ThemeResource SubtleFillColorSecondaryBrush}">
                         <Grid.ColumnDefinitions>
@@ -74,7 +74,7 @@
                                 <ColumnDefinition Width="120" />
                                 <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock TextTrimming="CharacterEllipsis" Text="{x:Bind FileName}" />
+                            <TextBlock TextTrimming="CharacterEllipsis" Text="{x:Bind FileName, Mode=OneTime}" />
                             <TextBlock Grid.Column="1" Text="{x:Bind State, Mode=OneWay}" />
                             <TextBlock Grid.Column="2" TextTrimming="CharacterEllipsis"
                                        Text="{x:Bind DisplayMessage, Mode=OneWay}"

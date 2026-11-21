@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MarkItDownSharp.Desktop (Package)": {
+      "commandName": "MsixPackage"
+    }
+  }
+}

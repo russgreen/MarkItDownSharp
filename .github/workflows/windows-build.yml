@@ -12,9 +12,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 11.0.x
       - name: Restore
-        run: dotnet restore MarkItDownSharp.sln
+        run: dotnet restore MarkItDownSharp.slnx
       - name: Test conversion and monitoring
         run: dotnet test tests/MarkItDownSharp.Tests/MarkItDownSharp.Tests.csproj --no-restore --configuration Release
       - name: Build WinUI application

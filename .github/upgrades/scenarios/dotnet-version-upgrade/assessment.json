@@ -1,0 +1,575 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net11.0",
+    "targetDisplayName": ".NETCoreApp,Version=v11.0"
+  },
+  "analysisStartTime": "2026-11-21T08:47:04.1450432Z",
+  "analysisEndTime": "2026-11-21T08:47:07.1893359Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 5,
+      "issues": 4,
+      "incidents": 13,
+      "effort": 13
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 6,
+        "Optional": 1,
+        "Potential": 6,
+        "Information": 0
+      },
+      "category": {
+        "Project": 5,
+        "Api": 6,
+        "NuGet": 2
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "src\\MarkItDownSharp.Converters\\MarkItDownSharp.Converters.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "MarkItDownSharp.Converters",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 4,
+        "numberOfCodeFiles": 4,
+        "linesTotal": 169,
+        "linesOfCode": 169,
+        "totalApiScanned": 288,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "7d99436f-25f7-4bbd-99f1-872647f89bc0",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\MarkItDownSharp.Converters\\MarkItDownSharp.Converters.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0\nRecommended target framework: net11.0",
+              "protected": "Current target framework: net8.0\nRecommended target framework: net11.0"
+            },
+            "kind": "File",
+            "path": "src\\MarkItDownSharp.Converters\\MarkItDownSharp.Converters.csproj",
+            "snippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "protectedSnippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0",
+              "RecommendedTargetFramework": "net11.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\MarkItDownSharp.Core\\MarkItDownSharp.Core.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 3,
+      "properties": {
+        "appName": "MarkItDownSharp.Core",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 5,
+        "numberOfCodeFiles": 5,
+        "linesTotal": 85,
+        "linesOfCode": 85,
+        "totalApiScanned": 173,
+        "minLinesOfCodeToChange": 2,
+        "maxLinesOfCodeToChange": 2
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "f29106aa-31e4-498d-b1e7-bdc8a39bbdd2",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\MarkItDownSharp.Core\\MarkItDownSharp.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0\nRecommended target framework: net11.0",
+              "protected": "Current target framework: net8.0\nRecommended target framework: net11.0"
+            },
+            "kind": "File",
+            "path": "src\\MarkItDownSharp.Core\\MarkItDownSharp.Core.csproj",
+            "snippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "protectedSnippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0",
+              "RecommendedTargetFramework": "net11.0"
+            }
+          }
+        },
+        {
+          "incidentId": "4f622c0a-9642-4d8b-84b9-567f0bbb3296",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: Nullable.GetUnderlyingType throws for custom Type subclasses ",
+          "projectPath": "src\\MarkItDownSharp.Core\\MarkItDownSharp.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var converter = FindConverter(metadata)\r\n            ?? throw new NotSupportedException($\u0022No converter is registered for \u0027{metadata.Extension ?? \u0022unknown\u0022}\u0027 files.\u0022);",
+              "protected": "T:System.NotSupportedException"
+            },
+            "kind": "File",
+            "path": "src\\MarkItDownSharp.Core\\MarkItDownService.cs",
+            "snippet": "var converter = FindConverter(metadata)\r\n            ?? throw new NotSupportedException($\u0022No converter is registered for \u0027{metadata.Extension ?? \u0022unknown\u0022}\u0027 files.\u0022);",
+            "protectedSnippet": "T:System.NotSupportedException",
+            "label": "T:System.NotSupportedException",
+            "properties": {
+              "CharCount": "2697"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/11/nullable-getunderlyingtype-throws.md",
+                "isCustom": false
+              }
+            ],
+            "line": 29,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "dd547ba4-4e7d-4a70-b2cf-cad3876a665e",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: Nullable.GetUnderlyingType throws for custom Type subclasses ",
+          "projectPath": "src\\MarkItDownSharp.Core\\MarkItDownSharp.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var converter = FindConverter(metadata)\r\n            ?? throw new NotSupportedException($\u0022No converter is registered for \u0027{metadata.Extension ?? \u0022unknown\u0022}\u0027 files.\u0022);",
+              "protected": "T:System.NotSupportedException"
+            },
+            "kind": "File",
+            "path": "src\\MarkItDownSharp.Core\\MarkItDownService.cs",
+            "snippet": "var converter = FindConverter(metadata)\r\n            ?? throw new NotSupportedException($\u0022No converter is registered for \u0027{metadata.Extension ?? \u0022unknown\u0022}\u0027 files.\u0022);",
+            "protectedSnippet": "T:System.NotSupportedException",
+            "label": "T:System.NotSupportedException",
+            "properties": {
+              "CharCount": "2697"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/11/nullable-getunderlyingtype-throws.md",
+                "isCustom": false
+              }
+            ],
+            "line": 21,
+            "column": 8
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\MarkItDownSharp.Desktop\\MarkItDownSharp.Desktop.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 2,
+      "properties": {
+        "appName": "MarkItDownSharp.Desktop",
+        "projectKind": "WinForms",
+        "frameworks": [
+          "net8.0-windows10.0.19041.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 11,
+        "numberOfCodeFiles": 6,
+        "linesTotal": 408,
+        "linesOfCode": 321,
+        "totalApiScanned": 183,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "9bdce194-c779-4935-bb93-84baa725be9e",
+          "ruleId": "NuGet.0001",
+          "projectPath": "src\\MarkItDownSharp.Desktop\\MarkItDownSharp.Desktop.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.WindowsAppSDK, 1.6.250108002\n\nRecommendation:\n\nMicrosoft.WindowsAppSDK, 2.7.0",
+              "protected": "Microsoft.WindowsAppSDK, 1.6.250108002\n\nRecommendation:\n\nMicrosoft.WindowsAppSDK, 2.7.0"
+            },
+            "kind": "File",
+            "path": "src\\MarkItDownSharp.Desktop\\MarkItDownSharp.Desktop.csproj",
+            "snippet": "Microsoft.WindowsAppSDK, 1.6.250108002\n\nRecommendation:\n\nMicrosoft.WindowsAppSDK, 2.7.0",
+            "protectedSnippet": "Microsoft.WindowsAppSDK, 1.6.250108002\n\nRecommendation:\n\nMicrosoft.WindowsAppSDK, 2.7.0",
+            "label": "Microsoft.WindowsAppSDK 1.6.250108002",
+            "properties": {
+              "PackageId": "Microsoft.WindowsAppSDK",
+              "PackageVersion": "1.6.250108002",
+              "PackageNewVersion": "2.7.0",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "145b9390-167e-4084-9d01-476ea2ac8059",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\MarkItDownSharp.Desktop\\MarkItDownSharp.Desktop.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0-windows10.0.19041.0\nRecommended target framework: net11.0-windows10.0.22000.0",
+              "protected": "Current target framework: net8.0-windows10.0.19041.0\nRecommended target framework: net11.0-windows10.0.22000.0"
+            },
+            "kind": "File",
+            "path": "src\\MarkItDownSharp.Desktop\\MarkItDownSharp.Desktop.csproj",
+            "snippet": "Current target framework: net8.0-windows10.0.19041.0\nRecommended target framework: net11.0-windows10.0.22000.0",
+            "protectedSnippet": "Current target framework: net8.0-windows10.0.19041.0\nRecommended target framework: net11.0-windows10.0.22000.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0-windows10.0.19041.0",
+              "RecommendedTargetFramework": "net11.0-windows10.0.22000.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+      "startingProject": true,
+      "issues": 3,
+      "storyPoints": 6,
+      "properties": {
+        "appName": "MarkItDownSharp.Tests",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 3,
+        "numberOfCodeFiles": 3,
+        "linesTotal": 141,
+        "linesOfCode": 141,
+        "totalApiScanned": 180,
+        "minLinesOfCodeToChange": 4,
+        "maxLinesOfCodeToChange": 4
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "667fdde4-6ef7-424f-9ad2-02d5051a8157",
+          "ruleId": "NuGet.0005",
+          "projectPath": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+              "protected": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3"
+            },
+            "kind": "File",
+            "path": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+            "snippet": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "protectedSnippet": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "label": "xunit 2.9.3",
+            "properties": {
+              "PackageId": "xunit",
+              "PackageVersion": "2.9.3",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "1d8a0a50-2afc-4481-8fab-61e60e3f36bb",
+          "ruleId": "Project.0002",
+          "projectPath": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0\nRecommended target framework: net11.0",
+              "protected": "Current target framework: net8.0\nRecommended target framework: net11.0"
+            },
+            "kind": "File",
+            "path": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+            "snippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "protectedSnippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0",
+              "RecommendedTargetFramework": "net11.0"
+            }
+          }
+        },
+        {
+          "incidentId": "a6d43a74-cfd8-4ee6-ab67-314e35aa5cd0",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: MemoryStream maximum capacity updated and exception behavior changed ",
+          "projectPath": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "await using var stream = new MemoryStream();",
+              "protected": "M:System.IO.MemoryStream.#ctor"
+            },
+            "kind": "File",
+            "path": "tests\\MarkItDownSharp.Tests\\ConversionTests.cs",
+            "snippet": "await using var stream = new MemoryStream();",
+            "protectedSnippet": "M:System.IO.MemoryStream.#ctor",
+            "label": "M:System.IO.MemoryStream.#ctor",
+            "properties": {
+              "CharCount": "1999"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/11/memorystream-max-capacity.md",
+                "isCustom": false
+              }
+            ],
+            "line": 49,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "cb294d0d-d16f-4e91-8d7c-e747fad008bc",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: MemoryStream maximum capacity updated and exception behavior changed ",
+          "projectPath": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(\r\n            \u0022\u003Ch1\u003ETitle\u003C/h1\u003E\u003Cp\u003EHello \u003Cstrong\u003Eworld\u003C/strong\u003E.\u003C/p\u003E\u003Cscript\u003Ealert(1)\u003C/script\u003E\u0022));",
+              "protected": "M:System.IO.MemoryStream.#ctor(System.Byte[])"
+            },
+            "kind": "File",
+            "path": "tests\\MarkItDownSharp.Tests\\ConversionTests.cs",
+            "snippet": "await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(\r\n            \u0022\u003Ch1\u003ETitle\u003C/h1\u003E\u003Cp\u003EHello \u003Cstrong\u003Eworld\u003C/strong\u003E.\u003C/p\u003E\u003Cscript\u003Ealert(1)\u003C/script\u003E\u0022));",
+            "protectedSnippet": "M:System.IO.MemoryStream.#ctor(System.Byte[])",
+            "label": "M:System.IO.MemoryStream.#ctor(System.Byte[])",
+            "properties": {
+              "CharCount": "1999"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/11/memorystream-max-capacity.md",
+                "isCustom": false
+              }
+            ],
+            "line": 35,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "156e25df-31d3-4471-82aa-09242edd8072",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: MemoryStream maximum capacity updated and exception behavior changed ",
+          "projectPath": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(\u0022Name,Value\\n\\\u0022one, two\\\u0022,a|b\u0022));",
+              "protected": "M:System.IO.MemoryStream.#ctor(System.Byte[])"
+            },
+            "kind": "File",
+            "path": "tests\\MarkItDownSharp.Tests\\ConversionTests.cs",
+            "snippet": "await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(\u0022Name,Value\\n\\\u0022one, two\\\u0022,a|b\u0022));",
+            "protectedSnippet": "M:System.IO.MemoryStream.#ctor(System.Byte[])",
+            "label": "M:System.IO.MemoryStream.#ctor(System.Byte[])",
+            "properties": {
+              "CharCount": "1999"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/11/memorystream-max-capacity.md",
+                "isCustom": false
+              }
+            ],
+            "line": 24,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "06438a65-22d7-4b0b-8da6-d573e1bacf59",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: MemoryStream maximum capacity updated and exception behavior changed ",
+          "projectPath": "tests\\MarkItDownSharp.Tests\\MarkItDownSharp.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(\u0022hello\\nworld\u0022));",
+              "protected": "M:System.IO.MemoryStream.#ctor(System.Byte[])"
+            },
+            "kind": "File",
+            "path": "tests\\MarkItDownSharp.Tests\\ConversionTests.cs",
+            "snippet": "await using var stream = new MemoryStream(Encoding.UTF8.GetBytes(\u0022hello\\nworld\u0022));",
+            "protectedSnippet": "M:System.IO.MemoryStream.#ctor(System.Byte[])",
+            "label": "M:System.IO.MemoryStream.#ctor(System.Byte[])",
+            "properties": {
+              "CharCount": "1999"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/11/memorystream-max-capacity.md",
+                "isCustom": false
+              }
+            ],
+            "line": 12,
+            "column": 8
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\MarkItDownSharp.Worker\\MarkItDownSharp.Worker.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "MarkItDownSharp.Worker",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 4,
+        "numberOfCodeFiles": 4,
+        "linesTotal": 445,
+        "linesOfCode": 445,
+        "totalApiScanned": 536,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "031693a6-4c4c-4eee-a979-990160457539",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\MarkItDownSharp.Worker\\MarkItDownSharp.Worker.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0\nRecommended target framework: net11.0",
+              "protected": "Current target framework: net8.0\nRecommended target framework: net11.0"
+            },
+            "kind": "File",
+            "path": "src\\MarkItDownSharp.Worker\\MarkItDownSharp.Worker.csproj",
+            "snippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "protectedSnippet": "Current target framework: net8.0\nRecommended target framework: net11.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0",
+              "RecommendedTargetFramework": "net11.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0003": {
+      "id": "Api.0003",
+      "isFeature": false,
+      "description": "API has a behavioral change in selected .NET version: code and binaries may behave differently at runtime without needing recompilation, but the new behavior might be undesirable and require updates.",
+      "label": "Behavioral change in selected .NET version",
+      "severity": "Potential",
+      "effort": 1
+    },
+    "NuGet.0001": {
+      "id": "NuGet.0001",
+      "isFeature": false,
+      "description": "NuGet package is incompatible with selected target framework.\n\nPackage needs to be upgraded to a version supporting selected project target framework. If there no new package versions supporting new target framework, different package needs to be used and all code needs to be upgraded to new API.",
+      "label": "NuGet package is incompatible",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262529",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0005": {
+      "id": "NuGet.0005",
+      "isFeature": false,
+      "description": "NuGet package is deprecated.\n\nGo to its documentation and if there is a guidance for replacement of functionality provided by this package.",
+      "label": "NuGet package is deprecated",
+      "severity": "Optional",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262531",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}

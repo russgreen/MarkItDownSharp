@@ -19,17 +19,17 @@ MarkItDownSharp is a Windows-only C# implementation of the [MarkItDown](https://
 ## Requirements
 
 - 64-bit Windows 10 version 1809 or later
-- .NET 8 SDK
-- Visual Studio 2022 with the **Windows application development** workload
+- .NET 11 SDK
+- Visual Studio 2026 with the **Windows application development** workload
 
 ## Build and run
 
-Open `MarkItDownSharp.sln` in Visual Studio on Windows, select `x64`, and run `MarkItDownSharp.Desktop`.
+Open `MarkItDownSharp.slnx` in Visual Studio on Windows, select `x64`, and run `MarkItDownSharp.Desktop`.
 
 Or build from a Windows terminal:
 
 ```powershell
-dotnet restore MarkItDownSharp.sln
+dotnet restore MarkItDownSharp.slnx
 dotnet build src\MarkItDownSharp.Desktop\MarkItDownSharp.Desktop.csproj -c Debug -p:Platform=x64
 ```
 
