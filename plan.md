@@ -33,8 +33,10 @@ The MVP is complete when a user can:
   - Periodic missed-event reconciliation
   - Relative output paths and atomic writes
   - Overwrite, skip, and version collision policies
+- `MarkItDownSharp.Presentation`
+  - View models, settings and job-history storage, notifications policy, crash reports (no WinUI dependency)
 - `MarkItDownSharp.Desktop`
-  - WinUI 3 and MVVM UI
+  - WinUI 3 shell, tray icon, startup task, Windows OCR
   - Folder pickers
   - Configuration persistence
   - Live conversion job status

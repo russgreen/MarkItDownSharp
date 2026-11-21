@@ -7,7 +7,9 @@
   <Project Path="src/MarkItDownSharp.Core/MarkItDownSharp.Core.csproj" />
   <Project Path="src/MarkItDownSharp.Desktop/MarkItDownSharp.Desktop.csproj">
     <Platform Project="x64" />
+    <Deploy Solution="Debug|Any CPU" />
   </Project>
+  <Project Path="src/MarkItDownSharp.Presentation/MarkItDownSharp.Presentation.csproj" />
   <Project Path="src/MarkItDownSharp.Worker/MarkItDownSharp.Worker.csproj" />
   <Project Path="tests/MarkItDownSharp.Tests/MarkItDownSharp.Tests.csproj" />
 </Solution>

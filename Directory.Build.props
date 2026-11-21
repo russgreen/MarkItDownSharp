@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- Single source of truth for the application and library version. Package.appxmanifest must use the same
+         number with a trailing .0 (checked by PackagingTests). -->
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+</Project>

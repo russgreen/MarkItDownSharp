@@ -5,6 +5,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" />
+    <PackageReference Include="ExcelDataReader" />
+    <PackageReference Include="HtmlAgilityPack" />
+    <PackageReference Include="MetadataExtractor" />
+    <PackageReference Include="MSGReader" />
+    <PackageReference Include="PdfPig" />
+    <PackageReference Include="ReverseMarkdown" />
+    <PackageReference Include="TagLibSharp" />
+    <PackageReference Include="YamlDotNet" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MarkItDownSharp.Core\MarkItDownSharp.Core.csproj" />
   </ItemGroup>
 </Project>

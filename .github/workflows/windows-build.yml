@@ -2,7 +2,7 @@ name: Windows build
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "dev"]
   pull_request:
 
 jobs:
@@ -15,7 +15,39 @@ jobs:
           dotnet-version: 11.0.x
       - name: Restore
         run: dotnet restore MarkItDownSharp.slnx
-      - name: Test conversion and monitoring
+      - name: Test conversion, monitoring, view models, packaging and XAML checks
         run: dotnet test tests/MarkItDownSharp.Tests/MarkItDownSharp.Tests.csproj --no-restore --configuration Release
       - name: Build WinUI application
         run: dotnet build src/MarkItDownSharp.Desktop/MarkItDownSharp.Desktop.csproj --no-restore --configuration Release -p:Platform=x64
+
+  msix:
+    # Builds real MSIX packages, then installs, runs, upgrades and uninstalls them on the runner.
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 11.0.x
+      - name: Create test certificate
+        shell: pwsh
+        run: ./build/New-TestCertificate.ps1 -PfxPath artifacts/test.pfx -Password 'ci-test-only'
+      - name: Build old and new packages
+        shell: pwsh
+        run: |
+          ./build/Build-Msix.ps1 -Version 0.1.0.0 -PfxPath artifacts/test.pfx -PfxPassword 'ci-test-only'
+          ./build/Build-Msix.ps1 -Version 0.1.1.0 -PfxPath artifacts/test.pfx -PfxPassword 'ci-test-only'
+      - name: Install, run and uninstall smoke test
+        shell: pwsh
+        run: ./build/Test-MsixInstall.ps1 -MsixPath artifacts/MarkItDownSharp_0.1.1.0_x64.msix -CertificatePath artifacts/test.cer
+      - name: Upgrade test
+        shell: pwsh
+        run: ./build/Test-MsixUpgrade.ps1 -OldMsixPath artifacts/MarkItDownSharp_0.1.0.0_x64.msix -NewMsixPath artifacts/MarkItDownSharp_0.1.1.0_x64.msix -CertificatePath artifacts/test.cer
+      - name: Upload test packages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-msix
+          path: |
+            artifacts/*.msix
+            artifacts/test.cer
