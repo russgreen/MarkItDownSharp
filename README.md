@@ -53,4 +53,6 @@ The WinUI XAML compiler is Windows-only; the Windows CI workflow builds the desk
 - `MarkItDownSharp.Desktop` — WinUI 3 application and persisted settings
 - `MarkItDownSharp.Tests` — conversion and watcher integration tests
 
+Implementation planning and future work are documented in [`plan.md`](plan.md) and [`backlog.md`](backlog.md).
+
 Office, PDF, EPUB, image, OCR, audio, and cloud conversions are intentionally outside this initial MVP.
