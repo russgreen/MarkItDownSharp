@@ -1,0 +1,21 @@
+name: Windows build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore
+        run: dotnet restore MarkItDownSharp.sln
+      - name: Test conversion and monitoring
+        run: dotnet test tests/MarkItDownSharp.Tests/MarkItDownSharp.Tests.csproj --no-restore --configuration Release
+      - name: Build WinUI application
+        run: dotnet build src/MarkItDownSharp.Desktop/MarkItDownSharp.Desktop.csproj --no-restore --configuration Release -p:Platform=x64
