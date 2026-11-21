@@ -50,6 +50,37 @@ as a GitHub release asset. Configure these repository secrets first:
 - `SIGNING_CERT_BASE64` — the PFX, base64 encoded (`[Convert]::ToBase64String([IO.File]::ReadAllBytes('release.pfx'))`)
 - `SIGNING_CERT_PASSWORD` — its password
 
+## MSI installer (WiX) and the Fallout build
+
+Besides the MSIX, the app ships as a classic per-machine MSI built with WiX 7 (`installer/MarkItDownSharp.Setup.wixproj`).
+The MSI installs the **unpackaged**, self-contained build of the desktop app (no package identity, Windows App SDK
+bundled). Because there is no package identity, "Start with Windows" uses a per-user `Run` registry entry instead of
+the MSIX startup task, and the app is started with `--startup` from it.
+
+The Fallout build project (`build/_build.csproj`) runs the whole pipeline:
+
+```powershell
+./build.ps1            # Clean -> Compile -> Test -> Publish   (Sign and Installer only run on main)
+./build.ps1 Publish    # just the unpackaged publish into output/MarkItDownSharp
+```
+
+On the `main` branch the same command also signs the app binaries and the MSI (it uses the code-signing certificate
+named in `build/Build.Sign.cs` from the local certificate store) and writes
+`installer/MarkItDownSharp-SetupFiles/MarkItDownSharp.<version>.msi`. To build an unsigned MSI on any branch, run
+`./build.ps1 Publish` and then:
+
+```powershell
+dotnet build installer/MarkItDownSharp.Setup.wixproj -c Release
+```
+
+Notes:
+
+- The version comes from `<Version>` in the root `Directory.Build.props`; the Fallout target passes it to WiX as `ProductVersion`.
+- The `UpgradeCode` in `installer/Package.wxs` must never change: it is how a new MSI replaces an installed one.
+- The wixproj sets `AcceptEula` for the WiX 7 Open Source Maintenance Fee EULA. That is a legal acceptance, see <https://wixtoolset.org/osmf/>.
+- The Fallout build project targets `net10.0` because Fallout 11 fails its start-up check on the .NET 11 runtime. Install the .NET 10 runtime as well as the .NET 11 SDK to run it.
+- The Setup UI (`installer/UI.wxs`) is the shared template: change the template, not the copy. The banner art was made with the Russ Green art kit.
+
 ## Final artwork
 
 The files in `src/MarkItDownSharp.Desktop/Assets` are placeholders. Replace them with final artwork at the sizes

@@ -1,3 +1,4 @@
+using MarkItDownSharp.Desktop.Services;
 using MarkItDownSharp.Presentation;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
@@ -21,7 +22,9 @@ public partial class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         var activation = AppInstance.GetCurrent().GetActivatedEventArgs();
-        var launchedFromStartup = activation.Kind == ExtendedActivationKind.StartupTask;
+        // MSIX starts raise a StartupTask activation; the MSI build is started with --startup by its Run key.
+        var launchedFromStartup = activation.Kind == ExtendedActivationKind.StartupTask ||
+            Environment.GetCommandLineArgs().Contains(WindowsShellServices.StartupArgument, StringComparer.OrdinalIgnoreCase);
         _window = new MainWindow(launchedFromStartup);
 
         // A startup launch decides in the window whether to show it, minimise it or hide it in the tray.

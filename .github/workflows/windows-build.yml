@@ -20,6 +20,28 @@ jobs:
       - name: Build WinUI application
         run: dotnet build src/MarkItDownSharp.Desktop/MarkItDownSharp.Desktop.csproj --no-restore --configuration Release -p:Platform=x64
 
+  msi:
+    # Builds the unsigned WiX MSI from the unpackaged publish. Signing happens only in a release build on main.
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          # 11.x is the SDK for the app; the Fallout build project runs on the .NET 10 runtime.
+          dotnet-version: |
+            10.0.x
+            11.0.x
+      - name: Publish the unpackaged app
+        run: ./build.ps1 Publish
+      - name: Build the MSI
+        run: dotnet build installer/MarkItDownSharp.Setup.wixproj --configuration Release
+      - name: Upload MSI
+        uses: actions/upload-artifact@v4
+        with:
+          name: msi
+          path: installer/MarkItDownSharp-SetupFiles/*.msi
+
   msix:
     # Builds real MSIX packages, then installs, runs, upgrades and uninstalls them on the runner.
     needs: build

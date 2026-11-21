@@ -55,6 +55,8 @@ dotnet restore MarkItDownSharp.slnx
 dotnet build src\MarkItDownSharp.Desktop\MarkItDownSharp.Desktop.csproj -c Debug -p:Platform=x64
 ```
 
+`./build.ps1` runs the Fallout pipeline (clean, compile, test, unpackaged publish; sign and MSI on `main`).
+
 The default package is an unsigned MSIX for local development. See [`docs/RELEASING.md`](docs/RELEASING.md) for signed packages, install and upgrade tests, and releases.
 
 ## Tests
@@ -75,7 +77,8 @@ The WinUI XAML compiler and the MSIX install/upgrade tests are Windows-only; the
 - `MarkItDownSharp.Presentation` — view models, settings and history storage, crash reporting (no WinUI dependency, so it is unit-tested)
 - `MarkItDownSharp.Desktop` — WinUI 3 shell: XAML, tray icon, notifications, startup task, Windows OCR
 - `MarkItDownSharp.Tests` — unit, integration and static checks
-- `build/` — packaging, signing, install and upgrade scripts
+- `build/` — Fallout build project (`./build.ps1`), MSIX packaging, signing, install and upgrade scripts
+- `installer/` — WiX 7 MSI installer for the unpackaged build
 
 Implementation planning and remaining work are documented in [`plan.md`](plan.md) and [`backlog.md`](backlog.md).
 

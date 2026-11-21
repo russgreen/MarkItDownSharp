@@ -1,0 +1,13 @@
+using Fallout.Common;
+using Fallout.Common.IO;
+
+partial class Build
+{
+    Target Clean => _ => _
+        .Executes(() =>
+        {
+            SourceDirectory.GlobDirectories("*/bin", "*/obj").DeleteDirectories();
+            TestsDirectory.GlobDirectories("*/bin", "*/obj").DeleteDirectories();
+            OutputDirectory.CreateOrCleanDirectory();
+        });
+}
